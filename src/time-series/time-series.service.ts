@@ -22,19 +22,26 @@ export class TimeSeriesService {
   }
 
   @Cron(CronExpression.EVERY_5_SECONDS)
-  async generateAndSendData() {
-    const point = new Point('sensor_data')
-      .tag('location', 'room1')
-      .floatField('temperature', this.generateRandomTemperature())
-      .timestamp(new Date());
-    
-    
-    this.logger.log(point);
+  async generateTemperaturInRooms() {
+
+    const N=2
+    //
     const writeApi = this.influxDB.getWriteApi(this.org, this.bucket);
-    writeApi.writePoint(point);
+
+    for (let i=0; i<N; i++) {
+        const point = new Point('sensor_data')
+            .tag('location', 'room' + i.toString())
+            .floatField('temperature', this.generateRandomTemperature())
+            .timestamp(new Date());
+        writeApi.writePoint(point);
+    }
+
+
+    //this.logger.log(point1, point2);
+
+
     await writeApi.close();
 
-    console.log('Data point sent to InfluxDB');
   }
 
   private generateRandomTemperature(): number {
