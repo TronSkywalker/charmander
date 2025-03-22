@@ -17,8 +17,8 @@ export class TimeSeriesService {
       url: this.configService.get<string>('INFLUXDB_URL'),
       token: this.configService.get<string>('INFLUXDB_TOKEN'),
     });
-    this.org = 'your-organization';
-    this.bucket = 'your-bucket';
+    this.org = 'riccus';
+    this.bucket = 'init_bucket';
   }
 
   @Cron(CronExpression.EVERY_5_SECONDS)
