@@ -21,10 +21,10 @@ export class TimeSeriesService {
     this.bucket = 'init_bucket';
   }
 
-  @Cron(CronExpression.EVERY_5_SECONDS)
+  @Cron(CronExpression.EVERY_10_SECONDS)
   async generateTemperaturInRooms() {
 
-    const N=3
+    const N=16
     //
     const writeApi = this.influxDB.getWriteApi(this.org, this.bucket);
 
@@ -37,12 +37,10 @@ export class TimeSeriesService {
         this.logger.log(point);
     }
 
-
-
-
     await writeApi.close();
-
   }
+
+
 
   private generateRandomTemperature(): number {
     return Math.random() * (30 - 20) + 20; // Random temperature between 20 and 30
