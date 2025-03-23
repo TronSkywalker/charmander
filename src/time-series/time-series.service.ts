@@ -24,7 +24,7 @@ export class TimeSeriesService {
   @Cron(CronExpression.EVERY_5_SECONDS)
   async generateTemperaturInRooms() {
 
-    const N=2
+    const N=3
     //
     const writeApi = this.influxDB.getWriteApi(this.org, this.bucket);
 
