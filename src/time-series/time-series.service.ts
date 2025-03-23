@@ -34,10 +34,10 @@ export class TimeSeriesService {
             .floatField('temperature', this.generateRandomTemperature())
             .timestamp(new Date());
         writeApi.writePoint(point);
-        this.logger.log(point);
-    }
-
+      }
+      
     await writeApi.close();
+    this.logger.log("new datapoint");
   }
 
 
