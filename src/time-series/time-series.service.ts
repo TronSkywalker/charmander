@@ -24,7 +24,7 @@ export class TimeSeriesService {
   @Cron(CronExpression.EVERY_10_SECONDS)
   async generateTemperaturInRooms() {
 
-    const N=16
+    const N=8
     //
     const writeApi = this.influxDB.getWriteApi(this.org, this.bucket);
 
@@ -40,7 +40,46 @@ export class TimeSeriesService {
     this.logger.log("new datapoint");
   }
 
+  @Cron(CronExpression.EVERY_10_SECONDS)
+  async generate0to1data() {
 
+    const N=4
+    //
+    const writeApi = this.influxDB.getWriteApi(this.org, this.bucket);
+
+    for (let i=0; i<N; i++) {
+        const point = new Point('sensor_data2')
+            .tag('location', 'gage_percent_' + i.toString())
+            .floatField('value', this.generate0to1())
+            .timestamp(new Date());
+        writeApi.writePoint(point);
+      }
+      
+    await writeApi.close();
+  }
+
+  @Cron(CronExpression.EVERY_10_SECONDS)
+  async generatesinus0to1data() {
+
+    const N=4
+    //
+    const writeApi = this.influxDB.getWriteApi(this.org, this.bucket);
+
+    for (let i=0; i<N; i++) {
+        const point = new Point('sensor_data3')
+            .tag('location', 'gage_percent_' + i.toString())
+            .floatField('value', i*Math.sin(new Date().getSeconds()+i))
+            .timestamp(new Date());
+        writeApi.writePoint(point);
+      }
+      
+    await writeApi.close();
+  }
+
+
+  private generate0to1(): number {
+    return Math.random(); // Random temperature between 20 and 30
+  }
 
   private generateRandomTemperature(): number {
     return Math.random() * (30 - 20) + 20; // Random temperature between 20 and 30
