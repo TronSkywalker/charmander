@@ -8,7 +8,7 @@ export class InfluxService implements OnModuleInit, OnModuleDestroy {
   private writeApi;
 
   private readonly ORG = 'riccus';
-  private readonly BUCKET = 'service-metrics';
+  private readonly BUCKET = 'init_bucket';
 
   constructor(private configService: ConfigService) {
     this.influxDB = new InfluxDB({
