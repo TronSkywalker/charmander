@@ -9,6 +9,7 @@ export class MetricsService implements OnModuleInit {
   async logMetrics() {
     const memoryUsage = process.memoryUsage();
     const cpuUsage = process.cpuUsage();
+    const upTime = process.uptime();
     const loadAvg = os.loadavg();
 
     await this.influxService.writeMetric(
@@ -18,6 +19,7 @@ export class MetricsService implements OnModuleInit {
         heapTotal: memoryUsage.heapTotal / 1024 / 1024,
         heapUsed: memoryUsage.heapUsed / 1024 / 1024,
         cpuUsed: cpuUsage.system,
+        upTime: upTime,
         load1: loadAvg[0], // Load average over 1 minutea
         load5: loadAvg[1], // Load average over 5 minutes
         load15: loadAvg[2], // Load average over 15 minutes
