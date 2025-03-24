@@ -29,6 +29,6 @@ export class MetricsService implements OnModuleInit {
   }
 
   onModuleInit() {
-    setInterval(() => this.logMetrics(), 5000); // Log metrics every 5 seconds
+    //setInterval(() => this.logMetrics(), 5000); // Log metrics every 5 seconds
   }
 }

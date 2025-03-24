@@ -21,7 +21,7 @@ export class TimeSeriesService {
     this.bucket = 'init_bucket';
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  //@Cron(CronExpression.EVERY_10_SECONDS)
   async generateTemperaturInRooms() {
 
     const N=8
@@ -40,7 +40,7 @@ export class TimeSeriesService {
     this.logger.log("new datapoint");
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  //@Cron(CronExpression.EVERY_10_SECONDS)
   async generate0to1data() {
 
     const N=4
@@ -58,7 +58,7 @@ export class TimeSeriesService {
     await writeApi.close();
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  //@Cron(CronExpression.EVERY_10_SECONDS)
   async generatesinus0to1data() {
 
     const N=4
