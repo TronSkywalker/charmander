@@ -12,7 +12,7 @@ export class MetricsService implements OnModuleInit {
     const loadAvg = os.loadavg();
 
     await this.influxService.writeMetric(
-      'init_bucket',
+      'metrics',
       {
         rss: memoryUsage.rss / 1024 / 1024, // Resident Set Size (MB)
         heapTotal: memoryUsage.heapTotal / 1024 / 1024,
